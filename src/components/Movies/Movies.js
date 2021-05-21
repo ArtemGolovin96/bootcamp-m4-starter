@@ -2,15 +2,24 @@ import React, { Component } from "react";
 import MovieItem from "../MovieItem/MovieItem";
 import "./Movies.css";
 import store from "../../redux/store";
-import { addtoFavoriteAction } from "../../redux/action";
+import { addtoFavoriteAction, deleteFromFavBUTTON_TRUE, deleteFromFavBUTTON_FALSE } from "../../redux/action";
 import { connect } from "react-redux";
 
 class Movies extends Component {
 
-    onClickToFavorite = (id) => {
-        this.props.addtoFavoriteActionProps(id);
-        // console.log(this.props.moviesFavorites)
+
+
+    onClickToFavorite = (el, id) => {
+        this.props.addtoFavoriteActionProps(el, id);
+        if(this.props.textValueAddToFavoriteButton === false) {
+          this.props.addtoFavoriteActionButtonTRUEProps(id);
+        } else if(this.props.textValueAddToFavoriteButton === true) {
+          this.props.addtoFavoriteActionButtonFALSEProps(id);
+        }
+        el.select = !this.props.textValueAddToFavoriteButton;
     }
+
+
 
 
   render() {
@@ -29,9 +38,13 @@ class Movies extends Component {
                 <h3 className="movie-item__title">
                   {movie.Title}&nbsp;({movie.Year})
                 </h3>
-                <button type="button" className="movie-item__add-button" onClick={() => this.onClickToFavorite(movie)}>
-                  Добавить в список
+               { 
+               <button type="button" className={movie.select? "focus-movie-item_add-button" : "movie-item__add-button"} onClick={() => this.onClickToFavorite(movie, movie.imdbID)}>
+                  {
+                    movie.select? "Удалить из списка" : "Добавить в список"
+                  }
                 </button>
+                }
               </div>
             </article>
           </li>
@@ -46,12 +59,15 @@ const mapStateToProps = (state) => {
   return {
     moviesSearch: state.moviesSearch,
     moviesFavorites: state.moviesFavorites,
+    textValueAddToFavoriteButton: state.textValueAddToFavoriteButton, 
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addtoFavoriteActionProps: (id) => {dispatch(addtoFavoriteAction(id))}
+        addtoFavoriteActionProps: (el, id) => {dispatch(addtoFavoriteAction(el, id))},
+        addtoFavoriteActionButtonTRUEProps: (id) => {dispatch(deleteFromFavBUTTON_TRUE(id))},
+        addtoFavoriteActionButtonFALSEProps: (id) => {dispatch(deleteFromFavBUTTON_FALSE(id))}
     };
 };
 

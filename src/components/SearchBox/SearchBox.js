@@ -10,7 +10,10 @@ class SearchBox extends Component {
     getDataOnSUbmit  = async () => {
         const result = await axios.get(`http://www.omdbapi.com/?s=${this.props.searchLine}&apikey=${this.props.apikey}`)
         .then((res) => {
-            const moviesSearchGetDataArray = res.data.Search 
+            const moviesSearchGetDataArray = res.data.Search.map((el) => {
+                el.select = this.props.textValueAddToFavoriteButton
+                return el
+            })
             return moviesSearchGetDataArray
         })
         this.props.addTomoviesSearchAfterAxiosGetProps(result)
@@ -19,12 +22,6 @@ class SearchBox extends Component {
     
 
 
-    searchLineChangeHandler = (textInput) => {
-        return {
-            type: "CHANGE_INPUT_SEARCH",
-            payload: { textInput }  
-        }
-    }
 
     searchBoxSubmitHandler = (e) => {
         e.preventDefault();
@@ -64,7 +61,8 @@ const mapStateToProps = (state) => {
     return {
         searchLine: state.searchLine,
         apikey: state.apikey,
-        moviesSearch: state.moviesSearch
+        moviesSearch: state.moviesSearch,
+        textValueAddToFavoriteButton: state.textValueAddToFavoriteButton,
     }
 }
 
