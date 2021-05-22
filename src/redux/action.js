@@ -66,5 +66,22 @@ export function inputFavoriteListChangeHandlerAction(textInput) {
     }
 }
 
+export function axiosPostNewFavoriteListAction(elObjAxiosPostNewList) {
+ 
+    return {
+        type: "POST_AXIOS_FAVORITE_LIST",
+        payload: {
+            elObjAxiosPostNewList
+        }
+    }
+}
+
+export function copyFavoritesAction() {
+ 
+    return {
+        type: "COPY_FAVORITE_LIST",
+    }
+}
+
 
 

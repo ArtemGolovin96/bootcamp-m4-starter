@@ -19,11 +19,29 @@
 
 .favorites__save {
     border: none;
+    
     background-color: #496DDB;
     padding: 10px 15px;
     color: #FFEEDB;
     font-size: 14px;
     transition: all 0.2s linear;
+}
+
+.open_save_a {
+    border: none;
+    text-decoration: none;
+    background-color: #ff5959;
+    padding: 10px 15px;
+    color: #FFEEDB;
+    font-size: 14px;
+    transition: all 0.2s linear;
+}
+
+.open_save_button {
+    border: none;
+    background-color: #ff5959;
+    padding: 5px;
+    color: #FFEEDB;
 }
 
 .favorites__save:hover {
@@ -48,4 +66,9 @@
 .h1_favorite {
     margin: 15px 0;
     font-weight: 500;
+}
+
+.copy {
+    position: absolute;
+    top: 500px
 }

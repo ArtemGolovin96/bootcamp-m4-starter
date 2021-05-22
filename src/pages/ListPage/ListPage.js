@@ -1,27 +1,54 @@
 import React, { Component } from 'react';
 import './ListPage.css';
+import { connect } from "react-redux";
+import axios from "axios";
 
 class ListPage extends Component {
+
     state = {
-        movies: [
-            { title: 'The Godfather', year: 1972, imdbID: 'tt0068646' }
-        ]
+        arrList: [], //id
+        arrNewList: [],
+        arr: [],
     }
+
     componentDidMount() {
-        const id = this.props.match.params;
-        console.log(id);
-        // TODO: запрос к сервер на получение списка
-        // TODO: запросы к серверу по всем imdbID
+        this.getDataListPage()
     }
+    getDataListPage = () => {
+      axios.get(`https://acb-api.algoritmika.org/api/movies/list/${this.props.match.params.id}`)
+        .then((result) => {
+            this.setState({ arrList: result.data.movies}, () => this.takeRes())
+            console.log(this.state.arrList)
+        })
+    }
+
+    getDataAboutFilms = (id) => {
+        axios.get(` http://www.omdbapi.com/?i=${id}&apikey=${this.props.apikey}`)
+        .then((result) => {
+            const arrData = [...this.state.arrNewList];
+            arrData.push(result.data)
+            this.setState({ arrNewList: arrData}, )
+            console.log(this.state)
+        })
+    }
+
+    takeRes = () => {
+        this.state.arrList.forEach((item) => this.getDataAboutFilms(item))
+        
+    }
+    
+
     render() { 
+            
         return (
             <div className="list-page">
-                <h1 className="list-page__title">Мой список</h1>
+                <h1 className="list-page__title">{this.props.titleFavorites}</h1>
                 <ul>
-                    {this.state.movies.map((item) => {
+                    {this.state.arrNewList.map((item) => {
                         return (
                             <li key={item.imdbID}>
-                                <a href="https://www.imdb.com/title/tt0068646/" target="_blank">{item.title} ({item.year})</a>
+                                <img className='img_cin_fav' src={item.Poster}></img>
+                                <a href="https://www.imdb.com/title/tt0068646/" target="_blank">{item.Title} ({item.Year})</a>
                             </li>
                         );
                     })}
@@ -31,4 +58,14 @@ class ListPage extends Component {
     }
 }
  
-export default ListPage;
+const mapStateToProps = (state) => {
+    return {
+      moviesFavorites: state.moviesFavorites,
+      titleFavorites: state.titleFavorites,
+      moviesIdPostAxiosFavoritesARRay: state.moviesIdPostAxiosFavoritesARRay,
+      apikey: state.apikey,
+    };
+  };
+  
+  
+  export default connect(mapStateToProps)(ListPage);

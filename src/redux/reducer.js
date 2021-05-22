@@ -7,8 +7,8 @@ const globalState = {
   searchLine: "",
   apikey: "183d4bbe",
   textValueAddToFavoriteButton: false,
-  moviesIdPostAxiosFavorites: [],
-
+  moviesIdPostAxiosFavoritesARRay: [],
+  copy: false,
 };
 
 export default function reducer(state = globalState, action) {
@@ -34,16 +34,21 @@ export default function reducer(state = globalState, action) {
       return {...state, moviesFavorites: newArr};
     
     case "DELETE_BUTTON_FROM_FAV_TRUE":
-      return {...state, textValueAddToFavoriteButton: true }
+      return {...state, textValueAddToFavoriteButton: true };
     
     case "DELETE_BUTTON_FROM_FAV_FALSE":
-      console.log('check_del')
-      return {...state, textValueAddToFavoriteButton: false }
+      return {...state, textValueAddToFavoriteButton: false };
     
     case "FAVORITE_LIST_INPUT_SEARCH":
       return { ...state, titleFavorites: action.payload.textInput };
 
-    
+    case "POST_AXIOS_FAVORITE_LIST":
+      const arrListOfFavorites = [...state.moviesIdPostAxiosFavoritesARRay];
+      arrListOfFavorites.push(action.payload.elObjAxiosPostNewList);
+      return {...state, moviesIdPostAxiosFavoritesARRay:arrListOfFavorites};
+
+    case "COPY_FAVORITE_LIST":
+      return {...state, copy: true}
     default: 
             return state
         
