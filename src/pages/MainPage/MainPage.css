@@ -17,3 +17,17 @@
 .main-page__favorites {
     width: 35%;   
 }
+
+
+
+@media (min-width: 375px) and (max-width: 834px) {    
+    .main-page__movies {
+        width: 100%;   
+        margin-bottom: 500px;
+        margin: auto;
+    }
+
+    .main-page__search-box {
+        width: 200px;
+    }
+}

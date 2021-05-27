@@ -92,37 +92,6 @@ class Favorites extends Component {
             </button>
           )}
         </button>
-        <div className='copy'>
-            {
-                this.props.copy? <div className="favorites">
-                <input
-                  value={this.props.titleFavorites}
-                  onChange={(e) => {
-                    this.props.inputFavoriteListChangeHandlerProps(e);
-                  }}
-                  className="favorites__name"
-                />
-                <ul className="favorites__list">
-                  {this.props.moviesFavorites.map((el) => {
-                    return (
-                      <h1 className="h1_favorite" key={el.imdbID}>
-                        {el.Title}({el.Year}){" "}
-                        <button
-                          className="delbutton"
-                          onClick={() => {
-                            this.onClickDel(el.imdbID);
-                          }}
-                        >
-                          ❌
-                        </button>
-                      </h1>
-                    );
-                  })}
-                </ul>
-              </div>
-              : null
-            }
-        </div>
       </div>
     );
   }

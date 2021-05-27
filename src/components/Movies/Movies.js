@@ -11,12 +11,12 @@ class Movies extends Component {
 
     onClickToFavorite = (el, id) => {
         this.props.addtoFavoriteActionProps(el, id);
-        if(this.props.textValueAddToFavoriteButton === false) {
-          this.props.addtoFavoriteActionButtonTRUEProps(id);
-        } else if(this.props.textValueAddToFavoriteButton === true) {
-          this.props.addtoFavoriteActionButtonFALSEProps(id);
+       
+        if(el.select === false) {
+          this.props.addtoFavoriteActionButtonTRUEProps(el);
+        } else if(el.select === true) {
+          this.props.addtoFavoriteActionButtonFALSEProps(el);
         }
-        el.select = !this.props.textValueAddToFavoriteButton;
     }
 
 
@@ -26,7 +26,9 @@ class Movies extends Component {
     return (
       <ul className="movies">
         {
+   
         this.props.moviesSearch.map((movie) => (
+          
           <li className="movies__item" key={movie.imdbID}>
             <article className="movie-item">
               <img
@@ -37,11 +39,13 @@ class Movies extends Component {
               <div className="movie-item__info">
                 <h3 className="movie-item__title">
                   {movie.Title}&nbsp;({movie.Year})
+                  {console.log(movie.select)}
                 </h3>
                { 
                <button type="button" className={movie.select? "focus-movie-item_add-button" : "movie-item__add-button"} onClick={() => this.onClickToFavorite(movie, movie.imdbID)}>
                   {
-                    movie.select? "Удалить из списка" : "Добавить в список"
+                    movie.select? "Удалить из списка" : "Добавить в список" 
+                    
                   }
                 </button>
                 }

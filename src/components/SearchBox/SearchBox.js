@@ -11,7 +11,7 @@ class SearchBox extends Component {
         const result = await axios.get(`http://www.omdbapi.com/?s=${this.props.searchLine}&apikey=${this.props.apikey}`)
         .then((res) => {
             const moviesSearchGetDataArray = res.data.Search.map((el) => {
-                el.select = this.props.textValueAddToFavoriteButton
+                el.select = false
                 return el
             })
             return moviesSearchGetDataArray

@@ -37,20 +37,20 @@ export function deleteFromFavAction(id) {
     }
 }
 
-export function deleteFromFavBUTTON_TRUE(id) {
+export function deleteFromFavBUTTON_TRUE(el) {
     return {
         type: "DELETE_BUTTON_FROM_FAV_TRUE",
         payload: {
-            id
+            el
         }
     }
 }
 
-export function deleteFromFavBUTTON_FALSE(id) {
+export function deleteFromFavBUTTON_FALSE(el) {
     return {
         type: "DELETE_BUTTON_FROM_FAV_FALSE",
         payload: {
-            id
+            el
         }
     }
 }
